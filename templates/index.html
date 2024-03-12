@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Based Voting System - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+    <a {% block homeActive %}{% endblock %} href="/" class="active">Home </a>
+    <a {% block votingActive %}{% endblock %} href="/">Voting</a>
+    <a {% block voter_registrationActive %}{% endblock %} href="{{ url_for('voter_registration') }}">Voter Registration</a>
+    <a {% block candidate_registrationActive %}{% endblock %} href="{{ url_for('candidate_registration') }}">Candidate Registration</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <div>
+            <a href="https://github.com/kvardaan/ML-Based-Voting-System" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>
+        </div>
+    </footer>
+
+    <!-- Your JavaScript files here -->
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+</body>
+</html>

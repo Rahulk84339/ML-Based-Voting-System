@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <section class='index-intro'>
+        <div class="welcome">
+            <h1><span style="font-size: 2.5rem;">Welcome to the</span>
+                <br><span style="font-size: 2em; color: #ff8239; text-shadow: 1px 1px 2.5px;">ML Based Voting System</span>
+            </h1>
+            <h2>"Empowering voters, with the right to free and fair elections!"</h2>
+        </div>
+        <div class='voting-results' {% block voting_resultsActive %}{% endblock %}>
+            <a class="nav-link" href="{{ url_for('voting_results') }}">View Voting Results</a>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <form id="registrationForm" method="post" action="{{ url_for('submit_voter_registration') }}">
+        <h3>Voter Registration</h3>
+
+        <label for="name">Enter Name</label>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+
+        <label for="AdhaarId">Enter Aadhaar Number</label>
+        <input type="text" id="AdhaarId" name="AdhaarId" placeholder="Aadhaar Number" pattern="[0-9]{12}" title="Aadhaar number must be 12 digits" maxlength="12" required>
+
+        <label for="imageCapture">Capture Image</label>
+        <input type="file" id="imageCapture" name="imageCapture" accept="image/*" capture="camera" required>
+
+        <label for="fingerprintCapture">Capture Fingerprint</label>
+        <input type="file" id="fingerprintCapture" name="fingerprintCapture" accept=".png,.jpg,.jpeg" required>
+
+        <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+    </form>
+
+    <!-- Include the same pop-up container and JavaScript code for the pop-up -->
+    <!-- ... (Copy the pop-up container and JavaScript code) -->
+{% endblock %}

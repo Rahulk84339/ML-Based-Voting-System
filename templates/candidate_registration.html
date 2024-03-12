@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <form id="registrationForm" method="post" action="{{ url_for('submit_candidate_registration') }}" enctype="multipart/form-data">
+        <h3>Candidate Registration</h3>
+
+        <label for="name">Enter Name</label>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+
+        <label for="partyName">Enter Party Name</label>
+        <input type="text" id="partyName" name="partyName" placeholder="Party Name" required>
+
+        <label for="symbol">Upload Party Symbol (Image)</label>
+        <input type="file" id="symbol" name="symbol" accept="image/*" required>
+
+        <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+    </form>
+
+    <!-- Include the same pop-up container and JavaScript code for the pop-up -->
+    <!-- ... (Copy the pop-up container and JavaScript code) -->
+{% endblock %}
