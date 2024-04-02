@@ -8,10 +8,11 @@
 <body>
     <h1>Candidate Information</h1>
 
-    <p><strong>Candidate ID:</strong> {{ voter_id }}</p>
+    <p><strong>Candidate ID:</strong> {{ candidate_id }}</p>
     <p><strong>Candidate Name:</strong> {{ full_name }}</p>
     <p><strong>Party Name:</strong> {{ party_name }}</p>
-    <p><strong>Symbol Path:</strong> {{ symbol_path }}</p>
+    <p><strong>Candidate Image:</strong></p>
+    <img src="data:image/jpeg;base64,{{ image_data }}" alt="Candidate Image">
 
 </body>
 </html>
