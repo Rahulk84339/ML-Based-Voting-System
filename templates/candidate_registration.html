@@ -2,20 +2,34 @@
 
 {% block content %}
     <form id="registrationForm" method="post" action="{{ url_for('submit_candidate_registration') }}" enctype="multipart/form-data">
-        <h3>Candidate Registration</h3>
+        <div class="form-group">
+            <h3>Candidate Registration</h3>
 
-        <label for="name">Enter Name</label>
-        <input type="text" id="name" name="name" placeholder="Name" required>
+            <label for="name">Enter Name</label>
+            <input type="text" id="name" name="name" placeholder="Name" required>
 
-        <label for="partyName">Enter Party Name</label>
-        <input type="text" id="partyName" name="partyName" placeholder="Party Name" required>
+            <label for="partyName">Enter Party Name</label>
+            <input type="text" id="partyName" name="partyName" placeholder="Party Name" required>
 
-        <label for="symbol">Upload Party Symbol (Image)</label>
-        <input type="file" id="symbol" name="symbol" accept="image/*" required>
+            <label for="image">Upload Candidate Image</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
 
-        <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+            <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+        </div>
     </form>
 
-    <!-- Include the same pop-up container and JavaScript code for the pop-up -->
-    <!-- ... (Copy the pop-up container and JavaScript code) -->
+    <!-- Flash Messages Display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div>
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                            {% for line in message.split('\n') %}
+                                <p>{{ line }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 {% endblock %}
