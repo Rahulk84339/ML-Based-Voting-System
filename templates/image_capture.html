@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Capture</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+        }
+        #capture-container {
+            text-align: center; /* Center-align contents */
+        }
+        button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="capture-container">
+        <video id="video" width="500" height="360" autoplay></video>
+        <canvas id="canvas" width="500" height="360" style="display:none;"></canvas>
+        <br> <!-- Add line break for spacing -->
+        <button id="snap">Capture</button>
+    </div>
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            video.play();
+            video.style.transform = 'scaleX(-1)';
+        });
+
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        document.getElementById('snap').addEventListener('click', function() {
+            context.drawImage(video, 0, 0, 500, 360);
+            var imageData = canvas.toDataURL('image/png');
+            window.opener.setCapturedImage(imageData);
+            window.close();
+        });
+    </script>
+</body>
+</html>
