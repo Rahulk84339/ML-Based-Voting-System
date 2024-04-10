@@ -1,5 +1,68 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    <p>Hola Amigo!</p>
+<div class="dashboard">
+    <div class="row justify-content-md-center mt-5">
+        <h1>Election Results</h1>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            {% if candidates %}
+                {% if votes %}
+                    <div class="col" id="chart_div" style="height: 400px;"></div>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'Candidate');
+                            data.addColumn('number', 'Votes');
+
+                            // Populate data from candidates dictionary and convert votes to integers
+                            var chartData = [
+                                {% for candidate, votes in candidates.items() %}
+                                    ['{{ candidate }}', {{ votes}}],
+                                {% endfor %}
+                            ];
+
+                            data.addRows(chartData);
+
+                            // Modify the chart data to include "Votes" in the tooltip
+                            var formatter = new google.visualization.NumberFormat({prefix: 'Votes: '});
+                            formatter.format(data, 1); // Format the "Votes" column
+
+                            var options = {
+                                title: null
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                            chart.draw(data, options);
+                        }
+                    </script>
+                    <div class="row justify-content-md-center">
+                        <div class="bordered-box">
+                            {% if winner|length > 1 %}
+                                <p>It's a tie between -</p>
+                                <ul>
+                                    {% for w in winner %}
+                                        <li>{{ w }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p style="font-weight: bold">Winner: {{ winner[0] }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <p>No votes have been cast yet.</p>
+                {% endif %}
+            {% else %}
+                <p>No candidates have been registered yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
