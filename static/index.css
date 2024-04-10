@@ -1,18 +1,23 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: rgba(255, 250, 240, 0.12);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0px 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+    margin: 0;
 }
 
+.content {
+    flex-grow: 1;
+}
+
+
 /* Heading Styles */
-h3 {
+h3, h1 {
     text-align: center;
     color: #333;
     font-weight: bold;
+    font-size: x-large;
 }
 
 /* Form Styles */
@@ -29,23 +34,24 @@ label {
     display: block;
     color: #555;
     font-size: 14px;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="file"],
-input[type="submit"] {
+input[type="submit"],
+select { /* Add select element styling */
     width: 100%;
     padding: 10px;
     margin-bottom: 25px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     font-size: 12px;
     transition: border-color 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="file"]:focus {
+select:focus { /* Add focus styling for select element */
     border-color: #007bff;
     outline: none;
 }
@@ -75,13 +81,6 @@ input:invalid {
     margin-top: 5px;
 }
 
-/* Media Queries for Responsiveness */
-@media only screen and (max-width: 600px) {
-    form {
-        padding: 10px;
-    }
-}
-
 @media only screen and (max-width: 450px) {
     form {
         max-width: 300px;
@@ -103,25 +102,20 @@ input:invalid {
 
 .welcome {
     text-align: center;
-    margin-top: 10%;
-}
-
-.voting-results{
-    display: flex;
-    justify-content: center;
+    margin-top: 15%;
 }
 
 .voting-results .nav-link:link, .voting-results .nav-link:visited {
-  background-color: #f44336;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+    background-color: #f44336;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .voting-results .nav-link:hover, .voting-results .nav-link:active {
-  background-color: red;
+    background-color: red;
 }
 
 /* Footer Styles */
@@ -129,8 +123,8 @@ footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 20px 0;
-    position: absolute;
+    padding: 1em;
+    position: sticky;
     bottom: 0;
     width: 100%;
 }
@@ -138,19 +132,21 @@ footer {
 footer a {
     color: #fff;
     text-decoration: none;
+
 }
 
 footer a:hover {
     color: #ccc;
 }
 
-
-
 .topnav {
     overflow: hidden;
     background-color: #333;
     display: flex;
     justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 
 .topnav a {
@@ -166,10 +162,10 @@ footer a:hover {
 .topnav a:hover {
     background-color: #ddd;
     color: black;
+    transition: .5s;
 }
 
 .topnav a.active {
-    /*background-color: #04AA6D;*/
     color: white;
 }
 
@@ -180,33 +176,128 @@ footer a:hover {
 @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {display: none;}
     .topnav a.icon {
-      float: right;
-      display: block;
+        float: right;
+        display: block;
     }
-}
 
-@media screen and (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    .welcome{
+        margin-top: 20%;
+    }
+
     .topnav.responsive {
-    display: flex;
-    flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        transition: 2s;
     }
     .topnav.responsive .icon {
-      position: absolute;
-      right: 0;
-      top: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
     }
     .topnav.responsive a {
-      float: none;
-      display: block;
-      text-align: left;
+        float: none;
+        display: block;
+        text-align: left;
     }
 
     .topnav{
-    display: flex;
-    justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
+        transition: 0.5s;
     }
 
     h1{
-    font-size: 1rem;
+        font-size: 1rem;
     }
+}
+
+/* Submit Button */
+button {
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    display: block; /* Make the button a block-level element for center alignment */
+    margin: 0 auto; /* Center-align the button horizontally */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.chart-container {
+    width: 30%;
+    /*margin: 20px auto;*/
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    /*padding: 20px;*/
+}
+
+.card-footer {
+    width: 100%;
+}
+
+.dashboard {
+    max-width: 80%;
+    justify-content: center;
+    margin: 5% auto;
+}
+
+li {
+    list-style-type: none;
+}
+
+.bordered-box {
+    border: 2px solid #000000; /* Dynamic border color will be applied here */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f8f9fa; /* Background color */
+    box-shadow: 1px 1px 5px 1px dimgrey; /* Box shadow for depth */
+    color: #333; /* Text color */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.bordered-box p {
+    margin: 0;
+    padding: 15px;
+}
+
+.dashboard p {
+    text-align: center;
+}
+
+/* Add styling for the button gap */
+.button-gap {
+    margin-bottom: 15px; /* Adjust the gap size as needed */
+}
+
+/* Style for the captured image container */
+#capturedImageContainer {
+    margin: 4rem auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.alert {
+    color: red;
+    max-width: 25%;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.alert-success {
+    color: #4CAF50; /* Green */
+}
+
+.alert-error {
+    color: #f44336; /* Red */
 }
