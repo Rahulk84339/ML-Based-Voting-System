@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <form action="/submit_vote" method="post">
+        <div class="form-group">
+            <h3>Cast your Vote</h3>
+
+            <label for="name">Enter Your Name</label>
+            <input id="name" name="name" placeholder="Name" required type="text">
+
+            <label for="adhaarId">Enter Adhaar Number</label>
+            <input type="text" id="adhaarId" name="adhaarId" placeholder="Aadhaar Number" required>
+
+            <label for="voterId">Enter Voter ID</label>
+            <input type="text" id="voterId" name="voterId" placeholder="Voter ID" required>
+
+            <label for="candidateID">Choose Candidate</label>
+            <select class="custom-select" id="candidateID" name="candidateID" required onchange="displayPartyName(this)">
+                <option value="" disabled selected>Select a candidate</option>
+                {% for candidate in candidates %}
+                    <option value="{{ candidate.candidate_id }}" data-party="{{ candidate.party_name }}">{{ candidate.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="partyName">Party of the chosen Candidate</label>
+            <input type="text" id="partyName" name="partyName" placeholder="Party Name" readonly>
+
+            <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+        </div>
+    </form>
+<script>
+    function displayPartyName(select) {
+        const partyName = select.options[select.selectedIndex].getAttribute('data-party');
+        document.getElementById('partyName').value = partyName;
+    }
+
+    // Retrieve the message from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+
+    // Display a pop-up message if a message is received
+    if (message) {
+        alert(message);
+    }
+</script>
+{% endblock %}
