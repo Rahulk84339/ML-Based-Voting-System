@@ -1,24 +1,63 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    <form id="registrationForm" method="post" action="{{ url_for('submit_voter_registration') }}">
-        <h3>Voter Registration</h3>
+    <div class="container">
 
-        <label for="name">Enter Name</label>
-        <input type="text" id="name" name="name" placeholder="Name" required>
+        <form id="registrationForm" method="post" action="{{ url_for('submit_voter_registration') }}">
+            <div class="form-group">
+                <h3>Voter Registration</h3>
+                <label for="name">Enter Name</label>
+                <input type="text" id="name" name="name" placeholder="Name" required>
 
-        <label for="AdhaarId">Enter Aadhaar Number</label>
-        <input type="text" id="AdhaarId" name="AdhaarId" placeholder="Aadhaar Number" pattern="[0-9]{12}" title="Aadhaar number must be 12 digits" maxlength="12" required>
+                <label for="AdhaarId">Enter Aadhaar Number</label>
+                <input type="text" id="AdhaarId" name="AdhaarId" placeholder="Aadhaar Number" pattern="[0-9]{12}" title="Aadhaar number must be 12 digits" maxlength="12" required>
 
-        <label for="imageCapture">Capture Image</label>
-        <input type="file" id="imageCapture" name="imageCapture" accept="image/*" capture="camera" required>
+                <!-- Button to open image capture window -->
+                <button type="button" id="openImageCapture">Capture Image</button>
 
-        <label for="fingerprintCapture">Capture Fingerprint</label>
-        <input type="file" id="fingerprintCapture" name="fingerprintCapture" accept=".png,.jpg,.jpeg" required>
+                <!-- Hidden input to store captured image data -->
+                <input type="hidden" name="imageData" id="capturedImage">
 
-        <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
-    </form>
+                <div class="button-gap"></div> <!-- Add a div for button gap -->
 
-    <!-- Include the same pop-up container and JavaScript code for the pop-up -->
-    <!-- ... (Copy the pop-up container and JavaScript code) -->
+                <button type="submit" value="Submit" style="font-weight: bold; font-size: 14px">Submit</button>
+            </div>
+        </form>
+
+       <!-- Flash Messages Display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="justify-content-center">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                            <!-- Split the message by new line and display each part in a new paragraph -->
+                            {% for line in message.split('\n') %}
+                                <p>{{ line }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Display the captured image here -->
+        <div id="capturedImageContainer" style="display: none;">
+            <h3>Captured Image</h3>
+            <img id="capturedImagePreview" style="width: 200px; height: auto;">
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('openImageCapture').addEventListener('click', function() {
+            window.open('{{ url_for('image_capture') }}', 'Image Capture', 'width=640,height=480');
+        });
+
+        // Function to set captured image data and display preview
+        function setCapturedImage(imageData) {
+            document.getElementById('capturedImage').value = imageData;
+            document.getElementById('capturedImagePreview').src = imageData;
+            document.getElementById('capturedImageContainer').style.display = 'block';
+            document.getElementById('capturedImagePreview').style.transform = 'scaleX(-1)'; // Flip horizontally
+        }
+    </script>
 {% endblock %}
