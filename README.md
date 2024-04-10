@@ -1,2 +1,2 @@
 # ML-Based-Voting-System
-Author Rahul Sharma
+Author - Rahul Sharma
